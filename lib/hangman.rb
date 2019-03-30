@@ -1,10 +1,13 @@
 # Hangman CLI Game
-require 'game_dict'
+require_relative 'game_dict.rb'
+require_relative 'board.rb'
 
 class Hangman
   def initialize
-    reset_score
+    @score = 0
+    @guesses = 12
     @word_bank = GameDictionary.new
+    play_game
   end
 
   def print_rules
@@ -36,14 +39,57 @@ class Hangman
       2 - Normal
       3 - Hard
     }
-    @selected_level = Integer(gets) rescue false
+    @selected_level = Integer(gets.to_i) rescue false
   end
 
-  def check_valid_selection; end
+  def guess_valid?
+    @guess =~ /^[A-Z0-9]+$/i
+  end
 
-  def update_petals; end
+  def update_guesses_left
+    @guesses =- 1
+  end
 
-  def reset_score; end
+  def get_guess
+    @guess = gets.chomp
+  end
 
-  def play; end
+  def game_over?
+    @guesses_left == 0 || @game_board.include?('_') == false
+  end
+
+  def update_score
+    @score += 1
+  end
+
+  def determine_winner
+    if @guesses_left > 0 && @game_board.board.includes?('_') == false
+      puts 'Woohoo! You guessed the word!'
+      update_score
+    else
+      puts 'Better luck next time!'
+    end
+  end
+
+  def play_game
+    print_rules
+    if check_ready? 
+      @level = prompt_difficulty_selection.to_i
+      @word_bank.set_difficulty_level(@level)
+      @word = select_word
+      @game_board = Board.new(@word)
+      until game_over?
+        get_guess
+        if guess_valid?
+          @game_board.update(@guess)
+          @game_board.display
+          update_guesses_left
+        else
+          puts 'Invalid input. Please enter a letter A through Z.'
+        end
+      end
+      determine_winner
+    end
+  end
+
 end
