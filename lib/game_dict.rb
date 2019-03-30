@@ -1,11 +1,14 @@
 # Dictionary for games
 class GameDictionary
 
-  def initialize(num)
+  def initialize
     @filename = './data/5desk.txt'
-    @difficulty_level = num
     set_word_length
     @dict = load_filtered_dictionary(@filename)
+  end
+
+  def set_difficulty_level(num)
+    @difficulty_level = num
   end
 
   def load_filtered_dictionary(filename)
