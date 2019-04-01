@@ -3,14 +3,15 @@ require 'game_dict'
 describe GameDictionary do
 
   context 'after initializing a new dictionary with a difficulty level' do
-    let(:easy_dict) { GameDictionary.new } 
-    let(:normal_dict) { GameDictionary.new }
-    let(:hard_dict) { GameDictionary.new }
-    easy_dict.set_difficulty_level(1)
-    normal_dict.set_difficulty_level(2)
-    hard_dict.set_difficulty_level(3)
+    let(:easy_dict) { GameDictionary.new(1) } 
+    let(:normal_dict) { GameDictionary.new(2) }
+    let(:hard_dict) { GameDictionary.new(3) }
 
     it 'sets the word length maximum for selection' do
+      # easy_dict.set_difficulty_level(1)
+      # normal_dict.set_difficulty_level(2)
+      # hard_dict.set_difficulty_level(3)
+  
       expect(easy_dict.instance_variable_get(:@word_length)).to eql(5)
       expect(normal_dict.instance_variable_get(:@word_length)).to eql(10)
       expect(hard_dict.instance_variable_get(:@word_length)).to eql(15)

@@ -1,27 +1,31 @@
 # Dictionary for games
 class GameDictionary
 
-  def initialize
+  def initialize(num)
     @filename = './data/5desk.txt'
+    @difficulty_level = num
     set_word_length
     @dict = load_filtered_dictionary(@filename)
   end
 
-  def set_difficulty_level(num)
-    @difficulty_level = num
-  end
+  # def set_difficulty_level
+  #   @difficulty_level = num
+  # end
 
   def load_filtered_dictionary(filename)
-    File.readlines(filename).select { |line| line if line.length <= @word_length  }
+    File.readlines(filename).select { |line| line if line.length <= @max_length and line.length >= @min_length }
   end
 
   def set_word_length
     if @difficulty_level == 3
-      @word_length = 15
+      @max_length = 15
+      @min_length = 11
     elsif @difficulty_level == 2
-      @word_length = 10
-    else
-      @word_length = 5      
+      @max_length = 10
+      @min_length = 6
+    elsif @difficulty_level == 1
+      @max_length = 5      
+      @min_length = 3
     end
   end
 

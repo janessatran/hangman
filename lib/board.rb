@@ -1,12 +1,16 @@
 class Board
   attr_reader :board
   def initialize(word)
-    @word = word
+    @word = word.gsub!(/\s+/, '').downcase
     @board = Array.new(word.length, '_')
   end
 
+  def complete?
+    @board.include?('_') == false
+  end
+
   def display
-    print board.join(" ")
+    puts board.join(" ")
   end
 
   def update(guess)
