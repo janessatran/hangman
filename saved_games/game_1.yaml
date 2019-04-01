@@ -1,21 +1,12 @@
 --- !ruby/object:Hangman
 score: 0
-guesses: 5
+guesses: 7
 guessed_letters:
-- a
-- a
 - e
-- e
-- i
-- i
-- o
-- o
-- u
-- u
-- m
-- m
 - l
-- l
+- r
+- m
+- n
 selected_level: 2
 word_bank: !ruby/object:GameDictionary
   filename: "./data/5desk.txt"
@@ -11993,7 +11984,7 @@ word_bank: !ruby/object:GameDictionary
   - "gloppy\r\n"
   - "Gloria\r\n"
   - "glorify\r\n"
-  - glorious
+  - "glorious\r\n"
   - "glory\r\n"
   - "gloss\r\n"
   - "glossary\r\n"
@@ -22155,7 +22146,7 @@ word_bank: !ruby/object:GameDictionary
   - "poorness\r\n"
   - "pop\r\n"
   - "popcorn\r\n"
-  - "Pope\r\n"
+  - Pope
   - "pope\r\n"
   - "popeyed\r\n"
   - "popgun\r\n"
@@ -32791,16 +32782,12 @@ word_bank: !ruby/object:GameDictionary
   - "zygotic\r\n"
   - "zymurgy\r\n"
   - "Zzz\r\n"
-word: glorious
+word: Pope
 game_board: !ruby/object:Board
-  word: glorious
+  word: pope
   board:
   - _
-  - l
-  - o
   - _
-  - i
-  - o
-  - u
   - _
+  - e
 guess: '1'

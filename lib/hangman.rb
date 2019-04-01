@@ -80,7 +80,7 @@ class Hangman
   end
 
   def guess_valid?
-    @guess =~ /^[A-Z0-9]+$/i && @guess.length == 1
+    (@guess =~ /^[A-Z0-9]+$/i && @guess.length == 1) 
   end
 
   def update_guesses_left
@@ -145,6 +145,7 @@ class Hangman
         update_guessed_letters
         @game_board.update(@guess)
         @game_board.display
+        puts "guessed letters: #{@guessed_letters}"
         update_guesses_left
       else
         puts 'Invalid input. Please enter a letter A through Z.'
@@ -154,3 +155,5 @@ class Hangman
   end
 
 end
+
+game = Hangman.new
