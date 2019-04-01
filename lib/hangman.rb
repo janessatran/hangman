@@ -128,7 +128,6 @@ class Hangman
     prompt_difficulty_selection
     if level_valid?
       @word_bank = GameDictionary.new(@selected_level)
-      # @word_bank.set_difficulty_level(@selected_level)
       select_word
       setup_board
       play_game

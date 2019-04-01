@@ -13,16 +13,19 @@ class GameDictionary
   # end
 
   def load_filtered_dictionary(filename)
-    File.readlines(filename).select { |line| line if line.length <= @word_length and line.length >= 3 }
+    File.readlines(filename).select { |line| line if line.length <= @max_length and line.length >= @min_length }
   end
 
   def set_word_length
     if @difficulty_level == 3
-      @word_length = 15
+      @max_length = 15
+      @min_length = 11
     elsif @difficulty_level == 2
-      @word_length = 10
+      @max_length = 10
+      @min_length = 6
     elsif @difficulty_level == 1
-      @word_length = 5      
+      @max_length = 5      
+      @min_length = 3
     end
   end
 
