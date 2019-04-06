@@ -1,16 +1,14 @@
-# Hangman CLI Game
 require_relative 'game_dict.rb'
 require_relative 'board.rb'
 require 'yaml'
 
-
+# Hangman CLI Game
 class Hangman
   def initialize
     @score = 0
     @guesses = 12
     @guessed_letters = []
     menu
-    # play_game
   end
 
   def print_rules
@@ -18,8 +16,14 @@ class Hangman
         Welcome to Hangman!
 
         Hangman is a guessing game. I will select a random word and you
-        will try to guess it, letter by letter, within 12 guesses. 
+        will try to guess it, letter by letter, within 12 guesses.
+
+        But wait... there's more. If you don't guess the word within 12 guesses,
+        the bunny will steal your doughnut :(
+        It is sad, but also cute.
+
         If you are able to guess the word within 12 guesses, you win!
+        And you get a doughnut!!! 
         If not... you lose (but you still rock! Never give up!)
     }
   end
@@ -106,13 +110,15 @@ class Hangman
   end
 
   def determine_winner
-    if @guesses > 0 && @game_board.complete?
+    if @game_board.complete?
       puts 'Woohoo! You guessed the word!'
       update_score
+      @lose = false
     else
       puts "The word was #{@word}."
       puts 'Better luck next time!'
       puts ''
+      @lose = true
     end
   end
 
@@ -136,6 +142,59 @@ class Hangman
     end
   end
 
+  def display_bunny
+    steps_left =  "         " * @guesses + "✨🍩✨"
+    if @lose
+      bunny =  <<-'EXPECTED'
+      {\_/}
+      (•.•)
+      / >🍩 Yummy!!
+      EXPECTED
+      puts bunny
+    elsif game_over? == false
+      bunny =  <<-'EXPECTED'
+      {\_/}
+      (•.•)
+      / >🍴 Hungry...
+      EXPECTED
+      puts bunny + steps_left
+    elsif @lose == false && game_over?
+      congrats = <<-'EXPECTED'
+      *    *
+      *         '       *       .  *   '     .           * *
+                                                                  '
+          *                *'          *          *        '
+      .           *               |               /
+                  '.         |    |      '       |   '     *
+                    \*        \   \             /
+          '          \     '* |    |  *        |*                *  *
+               *      `.       \   |     *     /    *      '
+     .                  \      |   \          /               *
+        *'  *     '      \      \   '.       |
+           -._            `                  /         *
+     ' '      ``._   *                           '          .      '
+      *           *\*          * .   .      *
+   *  '        *    `-._                       .         _..:='        *
+                .  '      *       *    *   .       _.:--'
+             *           .     .     *         .-'         *
+      .               '            ✨🍩✨. '   *           *         .
+     *       ___.-=--..-._     *                '               '
+                                     *       *
+                   *        _.'  .'       `.        '  *             *
+        *              *_.-'   .'            `.               *
+                      .'                       `._             *  '
+      '       '                        .       .  `.     .
+          .                      *                  `
+                  *        '             '                          .
+        .                          *        .           *  *
+                *        .                                    '
+
+                          YOU WIN - ENJOY THE DOUGHNUT!!
+      EXPECTED
+      puts congrats
+    end
+  end
+
   def play_game
     @game_board.display
     until game_over?
@@ -146,13 +205,14 @@ class Hangman
         @game_board.display
         puts "guessed letters: #{@guessed_letters}"
         update_guesses_left
+        display_bunny
       else
         puts 'Invalid input. Please enter a letter A through Z.'
       end
     end
     determine_winner
+    display_bunny
   end
-
 end
 
 game = Hangman.new
